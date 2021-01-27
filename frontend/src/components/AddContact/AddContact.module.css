@@ -1,0 +1,8 @@
+.AddContact {
+    width: 80%;
+    margin: 5% auto;
+    display: grid;
+    grid-template-columns: 65% 35%;
+    border: 1px solid red;
+    border-radius: 5%;
+}

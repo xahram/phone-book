@@ -1,0 +1,3 @@
+export const GET_ALL_CONTACTS = "GET_ALL_CONTACTS";
+
+export const GET_CURRENT_USER ="GET_CURRENT_USER";

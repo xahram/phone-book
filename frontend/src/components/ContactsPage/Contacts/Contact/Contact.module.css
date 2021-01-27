@@ -1,0 +1,8 @@
+.Contact {
+    width: 100%;
+    font-size: 20px;
+    padding: 1.5rem 0px;
+    margin: 2% 0;
+    border: 1px solid salmon;
+    box-sizing: border-box;
+}

@@ -1,0 +1,11 @@
+.ContactsPage {
+  width: 80%;
+  border: 2px solid salmon;
+  border-radius: 5%;
+  margin: auto;
+  margin-top: 5%;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  column-gap: 0.5rem;
+}
