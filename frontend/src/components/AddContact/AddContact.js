@@ -78,7 +78,8 @@ export default class AddContact extends React.Component {
             },
 
         },
-        file: true
+        file: true,
+        img: null
 
     }
     onChangeHandler = (e, identifier) => {
@@ -92,10 +93,16 @@ export default class AddContact extends React.Component {
     }
     // #突然ですが占ってもいいですか
 
-    checkFilehandler = (validity) => {
-        this.setState({ file: validity }, () => {
-            console.log(validity, this.state.file)
-        })
+    checkFilehandler = (validity, img) => {
+        if (img) {
+            this.setState({ file: validity, img: img }, () => {
+                console.log(validity, this.state.file)
+            })
+        } else {
+            this.setState({ file: validity }, () => {
+                console.log(validity, this.state.file)
+            })
+        }
     }
     isFormValid = () => {
         let isValid = false;
@@ -146,13 +153,25 @@ export default class AddContact extends React.Component {
         const valid = this.isFormValid()
 
         if (valid) {
-            const data = {
-                name: this.state.contactForm.name.value,
-                address: this.state.contactForm.address.value,
-                bio: this.state.contactForm.bio.value,
-                phoneNumber: this.state.contactForm.phone.value
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
             }
-            axios.post("http://127.0.0.1", data)
+            const formData = new FormData()
+            formData.append('profile', this.state.img)
+            formData.append('name', this.state.contactForm.name.value)
+            formData.append('address', this.state.contactForm.address.value)
+            formData.append('bio', this.state.contactForm.bio.value)
+            formData.append('phoneNumber', this.state.contactForm.phone.value)
+
+            axios.post("http://127.0.0.1:5000/api/v1/add-contact", formData,config)
+            .then((res)=>{
+                console.log(res)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
         }
     }
     render() {

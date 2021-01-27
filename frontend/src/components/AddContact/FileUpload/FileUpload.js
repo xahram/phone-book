@@ -22,7 +22,7 @@ export default class FileUPload extends React.Component {
                 this.props.checkFilehandler(false)
             }
             else {
-                this.props.checkFilehandler(true)
+                this.props.checkFilehandler(true, this.state.file)
             }
         })
 

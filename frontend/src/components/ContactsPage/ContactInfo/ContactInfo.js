@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './ContactInfo.module.css'
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actionTypes'
-import {NavLink, withRouter} from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 
 const ContactInfo = (props) => {
     console.log(props)
@@ -13,8 +13,8 @@ const ContactInfo = (props) => {
         // also keep in mind that this will run first before its parent's useeffect
         // hence no dispatch and hence state of contact list will be empty [] 
         // causing to acces contact[0] => undefined
-        if (props.match.params.id  && props.contacts.length) {
-            const id = props.match.params.id.slice(1,props.match.params.id.length)
+        if (props.match.params.id && props.contacts.length) {
+            const id = props.match.params.id.slice(1, props.match.params.id.length)
             const currUser = props.contacts.filter((curr) => {
                 return id === curr.id
             })
@@ -28,7 +28,13 @@ const ContactInfo = (props) => {
             <h2>Contact Details</h2>
             <div className={classes.MainContent}>
                 <div className={classes.profiledata}>
-                    <div><img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="profile" /></div>
+                    <div>
+                        <img
+                            src={props.currentUser.profilePic
+                                ? 'http://localhost:5000' + props.currentUser.profilePic
+                                : "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"}
+                            alt="profile" />
+                    </div>
                     <div>
                         <p>Contact Name : {props.currentUser.name}</p>
                         <p>Phone Number : {props.currentUser.phoneNumber}</p>
@@ -37,7 +43,7 @@ const ContactInfo = (props) => {
                 </div>
                 <div className={classes.bio}>
                     <p>{props.currentUser.bio}</p>
-                   <NavLink to="/add-contact"> <button>Add New Contact</button></NavLink>
+                    <NavLink to="/add-contact"> <button>Add New Contact</button></NavLink>
                 </div>
             </div>
         </div></>)

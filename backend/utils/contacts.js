@@ -1,4 +1,4 @@
-module.exports = [
+global.contacts = [
     {
         id: '9c2fe450-5f0d-11eb-af8a-d9efe33fbe0b',
         name: 'Arslan Ejaz',
