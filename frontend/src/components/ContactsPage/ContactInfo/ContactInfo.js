@@ -43,7 +43,7 @@ const ContactInfo = (props) => {
                 </div>
                 <div className={classes.bio}>
                     <p>{props.currentUser.bio}</p>
-                    <NavLink to="/add-contact"> <button>Add New Contact</button></NavLink>
+                    <NavLink to="/add-contact"> <button className={classes.btn}>Add New Contact</button></NavLink>
                 </div>
             </div>
         </div></>)

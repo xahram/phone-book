@@ -3,6 +3,8 @@ import Input from './Input/Input';
 import classes from './AddContact.module.css'
 import FileUPload from './FileUpload/FileUpload';
 import axios from '../../utils/axios'
+import { toast } from 'react-hot-toast';
+import Spinner from '../UI/Spinner/Spinner'
 // import parsePhoneNumber from 'libphonenumber-js';
 // import { unstable_batchedUpdates } from 'react-dom'
 // import { batch } from 'react-redux'
@@ -79,8 +81,16 @@ export default class AddContact extends React.Component {
 
         },
         file: true,
-        img: null
+        img: null,
+        loading: true
 
+    }
+
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({ loading: false })
+        }, 2000)
     }
     onChangeHandler = (e, identifier) => {
         const updatedcontactForm = { ...this.state.contactForm };
@@ -91,7 +101,6 @@ export default class AddContact extends React.Component {
         updatedcontactForm[identifier] = updatedElement
         this.setState({ contactForm: updatedcontactForm })
     }
-    // #突然ですが占ってもいいですか
 
     checkFilehandler = (validity, img) => {
         if (img) {
@@ -104,6 +113,7 @@ export default class AddContact extends React.Component {
             })
         }
     }
+
     isFormValid = () => {
         let isValid = false;
 
@@ -116,13 +126,13 @@ export default class AddContact extends React.Component {
         if (this.state.contactForm.name.value < 3 || this.state.contactForm.name.value > 30 || nameFormat.test(this.state.contactForm.name.value)) {
             this.setState((state) => ({ contactForm: { ...state.contactForm, name: { ...state.contactForm.name, valid: false } } }), () => {
                 console.log("name", this.state.contactForm.name.valid)
-                isValid = (this.state.contactForm.name.valid && this.state.contactForm.phone.valid && this.state.file)
+                isValid = (this.state.contactForm.name.valid && this.state.contactForm.phone.valid)
             })
         }
         if (!phonenoFormat.test(this.state.contactForm.phone.value)) {
             this.setState((state) => ({ contactForm: { ...state.contactForm, phone: { ...state.contactForm.phone, valid: false } } }), () => {
                 console.log("phone", this.state.contactForm.phone.valid)
-                isValid = (this.state.contactForm.name.valid && this.state.contactForm.phone.valid && this.state.file)
+                isValid = (this.state.contactForm.name.valid && this.state.contactForm.phone.valid)
             })
         }
         else {
@@ -152,7 +162,7 @@ export default class AddContact extends React.Component {
         e.preventDefault()
         const valid = this.isFormValid()
 
-        if (valid) {
+        if (valid && this.state.file) {
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -165,45 +175,55 @@ export default class AddContact extends React.Component {
             formData.append('bio', this.state.contactForm.bio.value)
             formData.append('phoneNumber', this.state.contactForm.phone.value)
 
-            axios.post("http://127.0.0.1:5000/api/v1/add-contact", formData,config)
-            .then((res)=>{
-                console.log(res)
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
+            axios.post("http://127.0.0.1:5000/api/v1/add-contact", formData, config)
+                .then((res) => {
+                    if (res.status === 200) return toast.success("User Added To Your Contact")
+
+                    toast.error("Oops! Something Went Wrong!")
+
+                })
+                .catch((err) => {
+                    toast.error("Oops! Something Went Wrong!")
+                })
         }
     }
+
     render() {
-        const keys = Object.keys(this.state.contactForm)
-        const inputElements = keys.map((identifier) => {
-            const config = this.state.contactForm[identifier]
-            // console.log(identifier)
-            return <Input key={identifier}
-                onChangeHandler={(event) => { this.onChangeHandler(event, identifier) }}
-                label={identifier}
-                element={config.elementType}
-                type={config.elementConfig?.type}
-                value={config.value}
-                placeholder={config.elementConfig?.placeholder}
-                elementConfig={config.elementConfig}
-                minLength={config.validation?.minLength}
-                maxLength={config.validation?.maxLength}
-                required={config.validation?.required}
-                valid={config.valid}
-                errorMessage={config.errorMessage}
-            />
-        })
-        return (<form onSubmit={this.onSubmithandler} className={classes.AddContact}>
-            <div>
+        let addContact = <Spinner />
+        if (!this.state.loading) {
+            const keys = Object.keys(this.state.contactForm)
+            const inputElements = keys.map((identifier) => {
+                const config = this.state.contactForm[identifier]
+                // console.log(identifier)
+                return <Input key={identifier}
+                    onChangeHandler={(event) => { this.onChangeHandler(event, identifier) }}
+                    label={identifier}
+                    element={config.elementType}
+                    type={config.elementConfig?.type}
+                    value={config.value}
+                    placeholder={config.elementConfig?.placeholder}
+                    elementConfig={config.elementConfig}
+                    minLength={config.validation?.minLength}
+                    maxLength={config.validation?.maxLength}
+                    required={config.validation?.required}
+                    valid={config.valid}
+                    errorMessage={config.errorMessage}
+                />
+            })
+            addContact = (<form onSubmit={this.onSubmithandler} className={classes.AddContact}>
                 <div>
-                    {inputElements}
+                    <div>
+                        {inputElements}
+                    </div>
                 </div>
-            </div>
-            <div>
-                <FileUPload valid={this.state.file} checkFilehandler={this.checkFilehandler} />
-                <button type="submit">Add Contact</button>
-            </div>
-        </form>)
+                <div>
+                    <FileUPload valid={this.state.file} checkFilehandler={this.checkFilehandler} />
+                    <button className={classes.btn} type="submit">Add Contact</button>
+                </div>
+            </form>)
+
+        }
+
+        return addContact
     }
 }
