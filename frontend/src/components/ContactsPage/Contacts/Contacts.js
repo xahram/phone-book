@@ -13,7 +13,7 @@ const ContactList = ({ contactlist, onClick }) => {
     })
 
 
-    return (<div className={classes.Contacts}>{contacts}</div>)
+    return (<div  className={classes.Contacts}>{contacts}</div>)
 }
 
 export default ContactList

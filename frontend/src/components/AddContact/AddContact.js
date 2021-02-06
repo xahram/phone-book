@@ -210,17 +210,20 @@ export default class AddContact extends React.Component {
                     errorMessage={config.errorMessage}
                 />
             })
-            addContact = (<form onSubmit={this.onSubmithandler} className={classes.AddContact}>
-                <div>
-                    <div>
-                        {inputElements}
+            addContact = (<div className={classes.Contact}>
+                <h1>Add Contact</h1>
+                <form onSubmit={this.onSubmithandler} className={classes.AddContact}>
+                    <div data-aos="zoom-in-up">
+                        <div>
+                            {inputElements}
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <FileUPload valid={this.state.file} checkFilehandler={this.checkFilehandler} />
-                    <button className={classes.btn} type="submit">Add Contact</button>
-                </div>
-            </form>)
+                    <div>
+                        <FileUPload valid={this.state.file} checkFilehandler={this.checkFilehandler} />
+                        <button className={classes.btn} type="submit">Add Contact</button>
+                    </div>
+                </form>
+            </div>)
 
         }
 

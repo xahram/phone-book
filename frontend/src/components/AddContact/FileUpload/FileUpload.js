@@ -34,7 +34,7 @@ export default class FileUPload extends React.Component {
             <div>
                 <Image ref={this.img} />
                 <input type="file" onChange={this.onFileHandler} />
-                <p>{!this.props.valid ? "Please Upload File oF JPEG,JPG,PNG with size less than 200kb" : ""}</p>
+                <p style={{ color: "red" }}>{!this.props.valid ? "Please Upload File oF JPEG,JPG,PNG with size less than 200kb" : ""}</p>
             </div>
         )
     }

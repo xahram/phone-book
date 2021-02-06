@@ -24,27 +24,27 @@ const ContactInfo = (props) => {
         console.log(props.match.params.id)
     }, [props.match.params.id])
     return (<>
-        <div className={classes.ContactInfo}>
-            <h2>Contact Details</h2>
+        <div data-aos="fade-left" className={classes.ContactInfo}>
+            <h1>Contact Details</h1>
             <div className={classes.MainContent}>
                 <div className={classes.profiledata}>
                     <div>
                         <img
                             src={props.currentUser.profilePic
                                 ? 'http://localhost:5000' + props.currentUser.profilePic
-                                : "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"}
+                                : "https://cdn0.iconfinder.com/data/icons/social-media-network-4/48/male_avatar-512.png"}
                             alt="profile" />
                     </div>
                     <div>
-                        <p>Contact Name : {props.currentUser.name}</p>
-                        <p>Phone Number : {props.currentUser.phoneNumber}</p>
-                        <p>Address : {props.currentUser.address}</p>
+                        <p><i class="fas fa-user"></i>  {props.currentUser.name}</p>
+                        <p><i class="fas fa-phone"></i>  {props.currentUser.phoneNumber}</p>
+                        <p><i class="fas fa-map-marker-alt"></i>  {props.currentUser.address}</p>
                     </div>
                 </div>
                 <div className={classes.bio}>
                     <p>{props.currentUser.bio}</p>
-                    <NavLink to="/add-contact"> <button className={classes.btn}>Add New Contact</button></NavLink>
                 </div>
+                <NavLink to="/add-contact"> <button className={classes.btn}>Add New Contact</button></NavLink>
             </div>
         </div></>)
 }

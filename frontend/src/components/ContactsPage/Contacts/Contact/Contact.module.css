@@ -1,8 +1,22 @@
 .Contact {
-    width: 100%;
-    font-size: 20px;
-    padding: 1.5rem 0px;
-    margin: 2% 0;
-    border: 1px solid salmon;
-    box-sizing: border-box;
+  width: 100%;
+  font-size: 17px;
+  padding: 1.5rem 0px;
+  margin: 2% 0;
+  /* border: 1px solid salmon; */
+  box-sizing: border-box;
+
+  box-shadow: 0px 3px 6px rgba(34, 10, 10, 0.16);
 }
+.Contact:hover {
+  background-color: #f0eeee;
+  color: #fff;
+  /* border: 2px solid #2196f3; */
+  background-color: #2196f3;
+}
+.link a {
+  text-decoration: none;
+  color: #fa923f;
+}
+
+

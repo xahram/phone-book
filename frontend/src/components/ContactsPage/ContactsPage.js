@@ -5,18 +5,20 @@ import { connect } from 'react-redux'
 import * as actions from '../../store/actions/contactsActions'
 import classes from './ContactsPage.module.css';
 import { Route } from 'react-router-dom'
-const ContactsPage = (props) => {
-    function onClickHandler(id) {
 
-    }
+
+const ContactsPage = (props) => {
+
+    function onClickHandler() { }
     console.log(props)
     React.useEffect(() => {
         props.getContactsList(props.history)
     }, [])
-    return (<div className={classes.ContactsPage}>
+    return (<div data-aos="zoom-in" className={classes.ContactsPage}>
         <Contacts onClick={onClickHandler} contactlist={props.contacts} />
         <Route path="/:id" render={() => { return (<ContactInfo ></ContactInfo>) }} />
         {/* <ContactInfo></ContactInfo> */}
+
     </div>)
 }
 
