@@ -8,14 +8,14 @@
 }
 
 .Input select {
-  padding-right: 25%;
+  padding-right: 24%;
 }
 .Label {
   font-size: 16px;
   font-weight: bold;
   text-transform: capitalize;
   font-weight: bolder;
-  color: #2196f3;
+  color: #ff5722;
   margin-right: 2%;
 }
 .InputElement , .SelectInput {
@@ -43,4 +43,11 @@
 }
 .ErrorParagraph {
   color: red;
+}
+
+
+@media screen and (max-width:990px){
+  .Input {
+    margin:0;
+  }
 }

@@ -45,3 +45,14 @@
   border: 2px solid #ff5722;
   background-color: #ff5722;
 }
+
+
+@media screen and (max-width:990px){
+  .AddContact {
+    display: block;
+  }
+  .Contact{
+    height: 70vh;
+    overflow-y: scroll;
+  }
+}

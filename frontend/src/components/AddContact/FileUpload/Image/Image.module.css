@@ -11,3 +11,10 @@
     object-fit: cover;
     /* border-radius: 50%; */
 }
+
+@media screen and (max-width:699px){
+    .Image img {
+      width: 125px;
+      height: 125px;
+    }
+  }
